@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <!-- Add Post Form -->
+  <h1>Welcome, {{ current_user.username }}!</h1>
+    {% if current_user.is_authenticated %}
+      <h3>Add Post</h3>
+      <form method="POST" action="{{ url_for('create_post') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+          {{ form.title.label(class="form-control-label") }}
+          {{ form.title(class="form-control") }}
+          {% if form.title.errors %}
+            <div class="alert alert-danger">{{ form.title.errors[0] }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.content.label(class="form-control-label") }}
+          {{ form.content(class="form-control") }}
+          {% if form.content.errors %}
+            <div class="alert alert-danger">{{ form.content.errors[0] }}</div>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.submit(class="btn btn-primary") }}
+        </div>
+      </form>
+    {% endif %}
+  
+    <!-- Display Posts -->
+    <h3>All Posts</h3>
+    {% for post in posts %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h5>
+          <p class="card-text">{{ post.content }}</p>
+          <p class="card-text"><small class="text-muted">Posted by <a href="{{ url_for('user_profile', username=post.author.username) }}">{{ post.author.username }}</a> on {{ post.date_posted.strftime('%B %d, %Y') }}</small></p>
+        </div>
+      </div>
+    {% endfor %}
+  {% endblock %}
+  
+
+
+

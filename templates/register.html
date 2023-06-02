@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Register</h2>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.username.label }} {{ form.username(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.email.label }} {{ form.email(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.password.label }} {{ form.password(class="form-control") }}
+    </div>
+    <div class="form-group">
+        {{ form.confirm_password.label }} {{ form.confirm_password(class="form-control") }}
+        <span id="password-match-message" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const passwordInput = document.getElementById("password");
+      const confirmPasswordInput = document.getElementById("confirm_password");
+      const passwordMatchMessage = document.getElementById("password-match-message");
+
+      function checkPasswordMatch() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+          passwordMatchMessage.textContent = "Do not match.";
+        } else {
+          passwordMatchMessage.textContent = "Match";
+        }
+      }
+
+      confirmPasswordInput.addEventListener("input", checkPasswordMatch);
+    });
+  </script>
+{% endblock %}
