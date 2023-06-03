@@ -73,7 +73,7 @@ def account():
     user_posts = Post.query.filter_by(user_id=current_user.id).order_by(Post.date_posted.desc()).all()
     return render_template('account.html', title='Account', posts=user_posts, user=current_user)
 
-@app.route("/logout")
+@app.route("/logout", methods=['POST'])
 def logout():
     logout_user()
     flash('You have been logged out.', 'success')
