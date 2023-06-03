@@ -6,7 +6,7 @@ from models import User, Post, connect_db, db
 
 def create_and_configure_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///warbler'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://sukbcmys:x62NPoyXcqjnMfHKoJmh5tecr0bJQ98v@mahmud.db.elephantsql.com/sukbcmys'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_ECHO'] = True
     app.config['SECRET_KEY'] = 'myrender-2023'
