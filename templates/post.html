@@ -2,7 +2,7 @@
 
 {% block content %}
   <h2>{{ post.title }}</h2>
-  <p class="text-muted">Posted by <a href="{{ url_for('user_profile', username=post.author.username) }}">{{ post.author.username }}</a> on {{ post.date_posted.strftime('%B %d, %Y') }}</p>
+  <p class="text-muted">Posted by <a href="{{ url_for('user_profile', username=post.author.username) }}">{{ post.author.username }}</a> on {{ post.date_posted.strftime('%B %d, %Y %H:%M') }}</p>
   <p>{{ post.content }}</p>
   {% if current_user == post.author %}
     <hr>

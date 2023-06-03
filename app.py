@@ -90,6 +90,7 @@ def user_profile(username):
 def delete_account(username):
     if username != current_user.username:
         abort(403)  # Forbidden access
+    Post.query.filter_by(user_id=current_user.id).delete()
     db.session.delete(current_user)
     db.session.commit()
     logout_user()
@@ -130,10 +131,10 @@ def edit_post(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template('edit_post.html', title='Edit Post', form=form)
+    return render_template('edit_post.html', title='Edit Post', form=form, post=post)
 
 
-@app.route("/post/<int:post_id>/delete", methods=['POST'])
+@app.route("/post/<int:post_id>/delete", methods=['GET','POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
